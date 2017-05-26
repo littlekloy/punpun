@@ -31,6 +31,7 @@
 
         <!--Main-->
         <div class="main-wrapper header-fixed">
+
             <!--Nav Bar-->
             <header class="header">
                 <div class="brand">
@@ -52,7 +53,7 @@
                             <a href="index.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-home"></i> <span> หน้าแรก </span> </a>
                         </li>
                         <li class="header-block header-block-buttons">
-                            <a href="browse.jsp?category=0&sort=0" class="btn btn-none-shadow header-btn"> <i class="fa fa-file-text"></i> <span> โครงการต่าง ๆ </span> </a>
+                            <a href="ViewAllServlet" class="btn btn-none-shadow header-btn"> <i class="fa fa-file-text"></i> <span> โครงการต่าง ๆ </span> </a>
                         </li>
                         <li class="header-block header-block-buttons">
                             <a href="how-it-works.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-list-ul"></i> <span> ขั้นตอนการบริจาค </span> </a>
@@ -60,18 +61,19 @@
                         <li class="header-block header-block-buttons">
                             <a href="dashboard-project-setup-info.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-plus"></i> <span> สร้างโครงการ </span> </a>
                         </li>
-                        <c:if test="${empty member_id}">
+                        <c:if test="${empty member}">
                             <!-- login -->
                             <li class="header-block header-block-buttons">
                                 <a href="login.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-sign-in"></i> <span> ลงชื่อเข้าใช้ </span> </a>
                             </li>
                         </c:if>
-                        <c:if test="${member_id != null }">
+                        <c:if test="${member != null }">
+
                             <sql:query var="data" dataSource="punpun">
-                                SELECT * FROM notifications where member_id = ${member_id} and checked = 'F'
+                                SELECT * FROM notifications
                             </sql:query>
                             <sql:query var="count" dataSource="punpun">
-                                SELECT count(notification_id) as count FROM notifications where member_id = ${member_id} and checked = 'F'
+                                SELECT count(notification_id) as count FROM notifications
                             </sql:query>
                             <!-- notification -->
                             <li class="notifications new">
@@ -106,32 +108,30 @@
                                 </div>
                             </li>
 
-                            <sql:query var="data2" dataSource="punpun">
-                                SELECT * FROM members where member_id = ${member_id}
-                            </sql:query>
-                            <c:forEach var="user" items="${data2.rows}">
-                                <!-- profile -->
-                                <li class="profile dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <div class="img" style="background-image: url('assets/img/profile/${member_id}.jpg')"> </div> <span class="name">
-                                            ${user.first_name}
-                                        </span> </a>
-                                    <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <a class="dropdown-item" href="profile.jsp/?member_id=${member_id}"> <i class="fa fa-user icon"></i> โพรไฟล์ </a>
-                                        <a class="dropdown-item" href="dashboard.jsp"> <i class="fa fa-user icon"></i> แดชบอร์ด </a>
-                                        <a class="dropdown-item" href="dashboard-project-list.jsp"> <i class="fa fa-bell icon"></i> โครงการของคุณ </a>
-                                        <a class="dropdown-item" href="dashboard-account-setting.jsp"> <i class="fa fa-gear icon"></i> ตั้งค่าบัญชีผู้ใช้ </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="logoutServlet"> <i class="fa fa-power-off icon"></i> ลงชื่อออก </a>
-                                    </div>
-                                </li>
-                            </c:forEach>
+
+
+                            <!-- profile -->
+                            <li class="profile dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <div class="img" style="background-image: url('assets/img/profile/${member.memberId}.jpg')"> </div> <span class="name">
+                                        ${member.firstName}
+                                    </span> </a>
+                                <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <a class="dropdown-item" href="profile.jsp/?member_id=${member.memberId}"> <i class="fa fa-user icon"></i> โพรไฟล์ </a>
+                                    <a class="dropdown-item" href="dashboard.jsp"> <i class="fa fa-user icon"></i> แดชบอร์ด </a>
+                                    <a class="dropdown-item" href="dashboard-project-list.jsp"> <i class="fa fa-bell icon"></i> โครงการของคุณ </a>
+                                    <a class="dropdown-item" href="dashboard-account-setting.jsp"> <i class="fa fa-gear icon"></i> ตั้งค่าบัญชีผู้ใช้ </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="logoutServlet"> <i class="fa fa-power-off icon"></i> ลงชื่อออก </a>
+                                </div>
+                            </li>
+
 
                         </c:if>
-
                     </ul>
                 </div>
             </header>
+
 
 
             <!-- Header Content -->
@@ -148,251 +148,251 @@
             </div>
 
             <!-- Content -->
-        <div class="app">
-            <!-- Content -->
-            <article class="container content dashboard-page">
-                <div class="row">
-                    <!--Pill Tab : Menu-->
-                    <section class="section">
-                        <div class="col-sm-12 col-md-3">
-                            <div class="card items">
-                                <div class="card-block">
-                                    <h4>แนะนำการใช้</h4>
-                                    <!-- Nav tabs -->
-                                    <ul class="nav nav-pills">
-                                        <li class="nav-item"> <a href="" class="nav-link active" data-target="#intro-pills" aria-controls="intro-pills" data-toggle="tab" role="tab">ก่อนเริ่มใช้งาน</a> </li>
-                                        <li class="nav-item"> <a href="" class="nav-link" data-target="#crowdfunding-pills" aria-controls="crowdfunding-pills" data-toggle="tab" role="tab">การระดมทุนจากมวลชน</a></li>
-                                        <li class="nav-item"> <a href="" class="nav-link" data-target="#punpunforwho-pills" aria-controls="punpunforwho-pills" data-toggle="tab" role="tab">ปันปันเหมาะกับใคร</a></li>
-                                        <li class="nav-item"> <a href="" class="nav-link" data-target="#fee-pills" aria-controls="fee-pills" data-toggle="tab" role="tab">ค่าดำเนินการ</a></li>
-                                        <li class="nav-item"> <a href="" class="nav-link" data-target="#create-pills" aria-controls="create-pills" data-toggle="tab" role="tab">สร้างโครงการของคุณ</a> </li>
-                                        <li class="nav-item"> <a href="" class="nav-link" data-target="#promote-pills" aria-controls="promote-pills" data-toggle="tab" role="tab">โปรโมทโครงการ</a> </li>
-                                        <li class="nav-item"> <a href="" class="nav-link" data-target="#step-pills" aria-controls="step-pills" data-toggle="tab" role="tab">ขั้นตอนการบริจาค</a> </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </section>
-                    <!-- Pill Tab : Content -->
-                    <section class="section">
-                        <div class="col-md-9">
-                            <div class="card items">
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <!-- Intro Tab -->
-                                    <div class="tab-pane fade in active" id="intro-pills">
-                                        <div class="card-block">
-                                            <h2>Intro Tab</h2>
-                                            <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
-                                            <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
-                                            <ul>
-                                                <li>
-                                                    รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
-                                                </li>
-                                                <li>
-                                                    รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
-                                                </li>
-                                                <li>
-                                                    รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
-                                                </li>
-                                                <li>
-                                                    รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
-                                                </li>
-                                            </ul>
-                                            <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
-                                            <ul>
-                                                <li>
-                                                    ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
-                                                </li>
-                                                <li>
-                                                    เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
-                                                </li>
-                                            </ul>
-
-                                            <h2>ปันปันเหมาะกับใคร</h2>
-                                            <ul>
-                                                <li>ผู้มีจิตอาสา</li>
-                                                <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
-                                                <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
-                                                <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Crowdfunding Tab -->
-                                    <div class="tab-pane fade" id="crowdfunding-pills">
-                                        <div class="card-block">
-                                            <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
-                                            <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
-                                            <ul>
-                                                <li>
-                                                    <strong>รูปแบบการบริจาค</strong>(Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
-                                                </li>
-                                                <li>
-                                                    <strong>รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน</strong> (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
-                                                </li>
-                                                <li>
-                                                    <strong>รูปแบบการกู้ยืม</strong> (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
-                                                </li>
-                                                <li>
-                                                    <strong>รูปแบบการเข้าหุ้น</strong> (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
-                                                </li>
-                                            </ul>
-                                            <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
-                                            <ul>
-                                                <li>
-                                                    <strong>ได้รับทั้งหมดหรือไม่ได้รับเลย</strong> (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
-                                                </li>
-                                                <li>
-                                                    <strong>เก็บทั้งหมดที่ได้รับ</strong> (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Punpun For Who Tab -->
-                                    <div class="tab-pane fade" id="punpunforwho-pills">
-                                        <div class="card-block">
-                                            <h2>ปันปันเหมาะกับใคร</h2>
-                                            <p><hr></p>
-                                            <h5><i class="fa fa-users"> </i> ผู้มีจิตอาสา</h5>
-                                            <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
-                                            <h5><i class="fa fa-users"> </i> ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี </h5>
-                                            <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
-                                            <h5><i class="fa fa-users"> </i> มูลนิธีหรือหน่วยงานเพื่อการกุศล </h5>
-                                            <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
-                                            <h5><i class="fa fa-users"> </i> ผู้ประสบปัญหา ต้องการความช่วยเหลือ</h5>
-                                            <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p> 
-                                        </div>
-                                    </div>
-                                    <!-- Fee Tab -->
-                                    <div class="tab-pane fade" id="fee-pills">
-                                        <div class="card-block">
-                                            <h2>ค่าธรรมเนียม</h2>
-                                            <p><hr></p>
-                                            <h5><i class="fa fa-users"> </i> ค่าธรรมเนียม</h5>
-                                            <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
-                                        </div>
-                                    </div>
-                                    <!-- Creation Tab -->
-                                    <div class="tab-pane fade" id="create-pills">
-                                        <div class="card-block">
-                                            <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
-                                            <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
-                                            <ul>
-                                                <li>
-                                                    รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
-                                                </li>
-                                                <li>
-                                                    รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
-                                                </li>
-                                                <li>
-                                                    รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
-                                                </li>
-                                                <li>
-                                                    รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
-                                                </li>
-                                            </ul>
-                                            <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
-                                            <ul>
-                                                <li>
-                                                    ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
-                                                </li>
-                                                <li>
-                                                    เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
-                                                </li>
-                                            </ul>
-
-                                            <h2>ปันปันเหมาะกับใคร</h2>
-                                            <ul>
-                                                <li>ผู้มีจิตอาสา</li>
-                                                <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
-                                                <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
-                                                <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Promote Tab -->
-                                    <div class="tab-pane fade" id="promote-pills">
-                                        <div class="card-block">
-                                            <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
-                                            <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
-                                            <ul>
-                                                <li>
-                                                    รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
-                                                </li>
-                                                <li>
-                                                    รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
-                                                </li>
-                                                <li>
-                                                    รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
-                                                </li>
-                                                <li>
-                                                    รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
-                                                </li>
-                                            </ul>
-                                            <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
-                                            <ul>
-                                                <li>
-                                                    ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
-                                                </li>
-                                                <li>
-                                                    เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
-                                                </li>
-                                            </ul>
-
-                                            <h2>ปันปันเหมาะกับใคร</h2>
-                                            <ul>
-                                                <li>ผู้มีจิตอาสา</li>
-                                                <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
-                                                <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
-                                                <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Step Tab -->
-                                    <div class="tab-pane fade" id="step-pills">
-                                        <div class="card-block">
-                                            <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
-                                            <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
-                                            <ul>
-                                                <li>
-                                                    รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
-                                                </li>
-                                                <li>
-                                                    รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
-                                                </li>
-                                                <li>
-                                                    รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
-                                                </li>
-                                                <li>
-                                                    รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
-                                                </li>
-                                            </ul>
-                                            <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
-                                            <ul>
-                                                <li>
-                                                    ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
-                                                </li>
-                                                <li>
-                                                    เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
-                                                </li>
-                                            </ul>
-
-                                            <h2>ปันปันเหมาะกับใคร</h2>
-                                            <ul>
-                                                <li>ผู้มีจิตอาสา</li>
-                                                <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
-                                                <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
-                                                <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
-                                            </ul>
-                                        </div>
+            <div class="app">
+                <!-- Content -->
+                <article class="container content dashboard-page">
+                    <div class="row">
+                        <!--Pill Tab : Menu-->
+                        <section class="section">
+                            <div class="col-sm-12 col-md-3">
+                                <div class="card items">
+                                    <div class="card-block">
+                                        <h4>แนะนำการใช้</h4>
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-pills">
+                                            <li class="nav-item"> <a href="" class="nav-link active" data-target="#intro-pills" aria-controls="intro-pills" data-toggle="tab" role="tab">ก่อนเริ่มใช้งาน</a> </li>
+                                            <li class="nav-item"> <a href="" class="nav-link" data-target="#crowdfunding-pills" aria-controls="crowdfunding-pills" data-toggle="tab" role="tab">การระดมทุนจากมวลชน</a></li>
+                                            <li class="nav-item"> <a href="" class="nav-link" data-target="#punpunforwho-pills" aria-controls="punpunforwho-pills" data-toggle="tab" role="tab">ปันปันเหมาะกับใคร</a></li>
+                                            <li class="nav-item"> <a href="" class="nav-link" data-target="#fee-pills" aria-controls="fee-pills" data-toggle="tab" role="tab">ค่าดำเนินการ</a></li>
+                                            <li class="nav-item"> <a href="" class="nav-link" data-target="#create-pills" aria-controls="create-pills" data-toggle="tab" role="tab">สร้างโครงการของคุณ</a> </li>
+                                            <li class="nav-item"> <a href="" class="nav-link" data-target="#promote-pills" aria-controls="promote-pills" data-toggle="tab" role="tab">โปรโมทโครงการ</a> </li>
+                                            <li class="nav-item"> <a href="" class="nav-link" data-target="#step-pills" aria-controls="step-pills" data-toggle="tab" role="tab">ขั้นตอนการบริจาค</a> </li>
+                                        </ul>
                                     </div>
                                 </div>
+
                             </div>
-                        </div>
-                    </section>
-                </div>
-            </article>
-        </div>
+                        </section>
+                        <!-- Pill Tab : Content -->
+                        <section class="section">
+                            <div class="col-md-9">
+                                <div class="card items">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <!-- Intro Tab -->
+                                        <div class="tab-pane fade in active" id="intro-pills">
+                                            <div class="card-block">
+                                                <h2>Intro Tab</h2>
+                                                <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
+                                                <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
+                                                <ul>
+                                                    <li>
+                                                        รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
+                                                    </li>
+                                                </ul>
+                                                <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
+                                                <ul>
+                                                    <li>
+                                                        ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
+                                                    </li>
+                                                    <li>
+                                                        เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
+                                                    </li>
+                                                </ul>
+
+                                                <h2>ปันปันเหมาะกับใคร</h2>
+                                                <ul>
+                                                    <li>ผู้มีจิตอาสา</li>
+                                                    <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
+                                                    <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
+                                                    <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Crowdfunding Tab -->
+                                        <div class="tab-pane fade" id="crowdfunding-pills">
+                                            <div class="card-block">
+                                                <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
+                                                <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
+                                                <ul>
+                                                    <li>
+                                                        <strong>รูปแบบการบริจาค</strong>(Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
+                                                    </li>
+                                                    <li>
+                                                        <strong>รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน</strong> (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
+                                                    </li>
+                                                    <li>
+                                                        <strong>รูปแบบการกู้ยืม</strong> (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
+                                                    </li>
+                                                    <li>
+                                                        <strong>รูปแบบการเข้าหุ้น</strong> (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
+                                                    </li>
+                                                </ul>
+                                                <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
+                                                <ul>
+                                                    <li>
+                                                        <strong>ได้รับทั้งหมดหรือไม่ได้รับเลย</strong> (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
+                                                    </li>
+                                                    <li>
+                                                        <strong>เก็บทั้งหมดที่ได้รับ</strong> (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Punpun For Who Tab -->
+                                        <div class="tab-pane fade" id="punpunforwho-pills">
+                                            <div class="card-block">
+                                                <h2>ปันปันเหมาะกับใคร</h2>
+                                                <p><hr></p>
+                                                <h5><i class="fa fa-users"> </i> ผู้มีจิตอาสา</h5>
+                                                <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
+                                                <h5><i class="fa fa-users"> </i> ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี </h5>
+                                                <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
+                                                <h5><i class="fa fa-users"> </i> มูลนิธีหรือหน่วยงานเพื่อการกุศล </h5>
+                                                <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
+                                                <h5><i class="fa fa-users"> </i> ผู้ประสบปัญหา ต้องการความช่วยเหลือ</h5>
+                                                <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
+                                            </div>
+                                        </div>
+                                        <!-- Fee Tab -->
+                                        <div class="tab-pane fade" id="fee-pills">
+                                            <div class="card-block">
+                                                <h2>ค่าธรรมเนียม</h2>
+                                                <p><hr></p>
+                                                <h5><i class="fa fa-users"> </i> ค่าธรรมเนียม</h5>
+                                                <p><small>สำหรับผู้ที่ xxxx สามารถขอใบลดหย่อนภาษีได้จากเจ้าของโครงการ หากโครงการนั้นเป็นของหน่วยงานที่สามารถออกใบลดหย่อนภาษีได้ และสามารถขอจากปันปันในอนาคต</small></p>
+                                            </div>
+                                        </div>
+                                        <!-- Creation Tab -->
+                                        <div class="tab-pane fade" id="create-pills">
+                                            <div class="card-block">
+                                                <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
+                                                <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
+                                                <ul>
+                                                    <li>
+                                                        รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
+                                                    </li>
+                                                </ul>
+                                                <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
+                                                <ul>
+                                                    <li>
+                                                        ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
+                                                    </li>
+                                                    <li>
+                                                        เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
+                                                    </li>
+                                                </ul>
+
+                                                <h2>ปันปันเหมาะกับใคร</h2>
+                                                <ul>
+                                                    <li>ผู้มีจิตอาสา</li>
+                                                    <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
+                                                    <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
+                                                    <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Promote Tab -->
+                                        <div class="tab-pane fade" id="promote-pills">
+                                            <div class="card-block">
+                                                <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
+                                                <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
+                                                <ul>
+                                                    <li>
+                                                        รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
+                                                    </li>
+                                                </ul>
+                                                <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
+                                                <ul>
+                                                    <li>
+                                                        ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
+                                                    </li>
+                                                    <li>
+                                                        เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
+                                                    </li>
+                                                </ul>
+
+                                                <h2>ปันปันเหมาะกับใคร</h2>
+                                                <ul>
+                                                    <li>ผู้มีจิตอาสา</li>
+                                                    <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
+                                                    <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
+                                                    <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Step Tab -->
+                                        <div class="tab-pane fade" id="step-pills">
+                                            <div class="card-block">
+                                                <h2>การระดมทุนจากมวลชน (Crowdfunding)</h2>
+                                                <p>การระดมทุนจากมวลชน (Crowdfunding) คือ การระดมเงินทุนเพื่อสนับสนุนโครงการในด้านงานประดิษฐ์ ผลงานต่าง ๆ หรือโครงการเพื่อสังคมจากคนจำนวนมาก โดยการระดมทุนมีหลายรูปแบบ ดังนี้ </p>
+                                                <ul>
+                                                    <li>
+                                                        รูปแบบการบริจาค (Donation-based Crowdfunding) คือ การระดมทุนโดยผู้ระดมทุนไม่ได้รับสิ่งตอบแทน
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุน (Reward-based Crowdfunding) คือ การระดมทุนเพื่อแลกกับสิทธิประโยชน์หรือสิ่งของ
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการกู้ยืม (Loan-based / Debt Crowdfunding) คือ การกู้เงินจากมวลชนไปใช้ตามวัตถุประสงค์ที่แจ้งไว้ โดยมีกำหนดการชำระคืนและจ่ายดอกเบี้ย
+                                                    </li>
+                                                    <li>
+                                                        รูปแบบการเข้าหุ้น (Equity Crowdfunding) คือการเข้าหุ้นกัน โดยผู้ร่วมระดมทุนจะได้รับหุ้นของธุรกิจที่เราร่วมระดมทุนพร้อมทั้งโอกาสในการรับเงินปันผล
+                                                    </li>
+                                                </ul>
+                                                <p>นอกจากนั้นการระดมทุนรูปแบบการบริจาคและรูปแบบแลกเปลี่ยนบางสิ่งบางอย่างกับเงินทุนสามารถแบ่งออกเป็น 2 ประเภท คือ </p>
+                                                <ul>
+                                                    <li>
+                                                        ได้รับทั้งหมดหรือไม่ได้รับเลย (All-or-Nothing) ซึ่งหมายถึง หากโครงการไม่สำเร็จตามเป้าหมายที่ตั้งไว้ในระยะเวลาที่กำหนดเช่น ไม่ได้รับเงินระดมทุนตามที่วางแผนไว้ เป็นต้น โครงการนั้นจะไม่ได้รับเงินจากการระดมทุนเลย
+                                                    </li>
+                                                    <li>
+                                                        เก็บทั้งหมดที่ได้รับ (Keep-It-All) ซึ่งหมายถึงไม่ว่าโครงการจะสำเร็จหรือไม่ก็ตามโครงการนั้นจะได้รับเงินตามที่ระดมทุนได้จริง
+                                                    </li>
+                                                </ul>
+
+                                                <h2>ปันปันเหมาะกับใคร</h2>
+                                                <ul>
+                                                    <li>ผู้มีจิตอาสา</li>
+                                                    <li>ผู้ที่ต้องการบริจาคเพื่อลดหย่อนภาษี</li>
+                                                    <li>มูลนิธีหรือหน่วยงานเพื่อการกุศล</li>
+                                                    <li>ผู้ประสบปัญหา ต้องการความช่วยเหลือ</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+            </div>
 
             <!-- Footer -->
             <footer class="footer">

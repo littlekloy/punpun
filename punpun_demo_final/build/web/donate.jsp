@@ -30,6 +30,7 @@
         <div class="main-wrapper">
             <div class="app" id="app">
 
+
                 <!--Nav Bar-->
                 <header class="header">
                     <div class="brand">
@@ -59,18 +60,19 @@
                             <li class="header-block header-block-buttons">
                                 <a href="dashboard-project-setup-info.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-plus"></i> <span> สร้างโครงการ </span> </a>
                             </li>
-                            <c:if test="${empty member_id}">
+                            <c:if test="${empty member}">
                                 <!-- login -->
                                 <li class="header-block header-block-buttons">
                                     <a href="login.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-sign-in"></i> <span> ลงชื่อเข้าใช้ </span> </a>
                                 </li>
                             </c:if>
-                            <c:if test="${member_id != null }">
+                            <c:if test="${member != null }">
+
                                 <sql:query var="data" dataSource="punpun">
-                                    SELECT * FROM notifications where member_id = ${member_id} and checked = 'F'
+                                    SELECT * FROM notifications
                                 </sql:query>
                                 <sql:query var="count" dataSource="punpun">
-                                    SELECT count(notification_id) as count FROM notifications where member_id = ${member_id} and checked = 'F'
+                                    SELECT count(notification_id) as count FROM notifications
                                 </sql:query>
                                 <!-- notification -->
                                 <li class="notifications new">
@@ -105,31 +107,30 @@
                                     </div>
                                 </li>
 
-                                <sql:query var="data" dataSource="punpun">
-                                    SELECT * FROM members where member_id = ${member_id}
-                                </sql:query>
-                                <c:forEach var="user" items="${data.rows}">
-                                    <!-- profile -->
-                                    <li class="profile dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                            <div class="img" style="background-image: url('assets/img/profile/${member_id}.jpg')"> </div> <span class="name">
-                                                ${user.first_name}
-                                            </span> </a>
-                                        <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <a class="dropdown-item" href="profile.jsp/?member_id=${member_id}"> <i class="fa fa-user icon"></i> โพรไฟล์ </a>
-                                            <a class="dropdown-item" href="dashboard.jsp"> <i class="fa fa-user icon"></i> แดชบอร์ด </a>
-                                            <a class="dropdown-item" href="dashboard-project-list.jsp"> <i class="fa fa-bell icon"></i> โครงการของคุณ </a>
-                                            <a class="dropdown-item" href="dashboard-account-setting.jsp"> <i class="fa fa-gear icon"></i> ตั้งค่าบัญชีผู้ใช้ </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="logoutServlet"> <i class="fa fa-power-off icon"></i> ลงชื่อออก </a>
-                                        </div>
-                                    </li>
-                                </c:forEach>
+
+
+                                <!-- profile -->
+                                <li class="profile dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <div class="img" style="background-image: url('assets/img/profile/${member.memberId}.jpg')"> </div> <span class="name">
+                                            ${member.firstName}
+                                        </span> </a>
+                                    <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <a class="dropdown-item" href="profile.jsp/?member_id=${member.memberId}"> <i class="fa fa-user icon"></i> โพรไฟล์ </a>
+                                        <a class="dropdown-item" href="dashboard.jsp"> <i class="fa fa-user icon"></i> แดชบอร์ด </a>
+                                        <a class="dropdown-item" href="dashboard-project-list.jsp"> <i class="fa fa-bell icon"></i> โครงการของคุณ </a>
+                                        <a class="dropdown-item" href="dashboard-account-setting.jsp"> <i class="fa fa-gear icon"></i> ตั้งค่าบัญชีผู้ใช้ </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="logoutServlet"> <i class="fa fa-power-off icon"></i> ลงชื่อออก </a>
+                                    </div>
+                                </li>
+
 
                             </c:if>
                         </ul>
                     </div>
                 </header>
+
 
                 <!-- Header Content -->
                 <div class="app parallax-autoheight white-text" style="background-image: url('assets/backgrounds/profile-card-2.jpg');" >
