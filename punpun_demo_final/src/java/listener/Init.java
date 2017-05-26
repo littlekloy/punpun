@@ -28,13 +28,16 @@ public class Init implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         try {
+            DataSource ds = getPunpun();
             conn = getPunpun().getConnection();
+            sce.getServletContext().setAttribute("connection", conn);
+            sce.getServletContext().setAttribute("dataSource", ds);
         } catch (NamingException ex) {
             Logger.getLogger(Init.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Init.class.getName()).log(Level.SEVERE, null, ex);
         }
-        sce.getServletContext().setAttribute("connection", conn);
+
     }
 
     @Override

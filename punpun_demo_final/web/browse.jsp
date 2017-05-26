@@ -134,6 +134,7 @@
             </header>
 
 
+
             <!-- Search Content -->
             <div class="app parallax-autoheight white-text" style="background-image: url('assets/backgrounds/banner2.png');" >
                 <article class="container content-browse items-list-page">
@@ -204,9 +205,73 @@
                     <!-- Project Card Container -->
                     <section class="section">
                         <c:if test="${param.category == 0}">
-                            <sql:query var="result" dataSource="punpun">
-                                SELECT * FROM projects
-                            </sql:query>
+                            <c:forEach var="project" items="${sessionScope.allProjects}">
+                                <!-- Project Card -->
+                                <div class="col-lg-4">
+                                    <div class="card card-default">
+
+                                        <!-- Pic -->
+                                        <div class="card-header">
+                                            <div class="card card-block-img " style="background-image: url('assets/img/Project_Pic/${project.projectId}/${project.projectId}.jpg'); "></div>
+                                        </div>
+
+                                        <!-- Name and Short Info -->
+                                        <div class="card-block-browse">
+                                            <a href="project-detail.jsp?id=${project.projectId}"><h5> ${project.name}</h5></a>
+                                            <p class="" id="dot1"><small>${project.shortDescription}</small></p>
+                                        </div>
+
+                                        <!-- Stat Footer -->
+                                        <div class="card-footer stats">
+                                            <div class="row row-sm stats-container">
+
+                                                <!--Progress Bar-->
+                                                <div class="col-md-12">
+                                                    <progress class="progress stat-progress" value="${project.percent}" max="100">
+                                                        <div class="progress">
+                                                            <span class="progress-bar" style="width: 75%;"></span>
+                                                        </div>
+                                                    </progress>
+                                                </div>
+
+                                                <!--Progress Percent-->
+                                                <div class="col-md-3 stat-col">
+                                                    <div class="stat">
+                                                        <div class="value"> ${project.percent} % </div>
+                                                        <div class="name"> เป้าหมาย </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Earned-->
+                                                <div class="col-md-3 stat-col">
+                                                    <div class="stat">
+                                                        <div class="value"> ${project.funded} </div>
+                                                        <div class="name"> เงินระดมทุน </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Followers-->
+                                                <div class="col-md-3 stat-col">
+                                                    <div class="stat">
+                                                        <div class="value center-text"> ${project.supporter} </div>
+                                                        <div class="name"> ผู้สนับสนุน </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Interester Projects-->
+                                                <div class="col-md-3 stat-col">
+                                                    <div class="stat">
+                                                        <div class="value"> ${project.fundingDuration} </div>
+                                                        <div class="name"> วัน </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </c:if>
                         <c:if test="${param.category != 0}">
                             <sql:query var="result" dataSource="punpun">

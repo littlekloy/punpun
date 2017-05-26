@@ -12,6 +12,10 @@
         <servlet-name>logoutServlet</servlet-name>
         <servlet-class>controller.logoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewAllServlet</servlet-name>
+        <servlet-class>controller.ViewAllServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -19,6 +23,10 @@
     <servlet-mapping>
         <servlet-name>logoutServlet</servlet-name>
         <url-pattern>/logoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAllServlet</servlet-name>
+        <url-pattern>/ViewAllServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

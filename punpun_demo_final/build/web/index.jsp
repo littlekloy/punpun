@@ -139,7 +139,7 @@
                     <hr>
                     <h1>ปันส่วนของตัวเอง เพื่อแบ่งปันให้ผู้อื่น</h1>
                     <div class="want-padding">
-                        <a href="browse.jsp" class="want-top btn btn-block btn-lg btn-primary" style="border: 2px solid #ffffff;"><i class="fa fa-gift"> </i> ร่วมระดมทุน </a>
+                        <a href="browse.jsp?category=0&sort=0" class="want-top btn btn-block btn-lg btn-primary" style="border: 2px solid #ffffff;"><i class="fa fa-gift"> </i> ร่วมระดมทุน </a>
                     </div>
                     <!--<p id="demo" style="font-size:30px; color: white"></p> -->
 
@@ -282,7 +282,7 @@
 
                     <div class="col-md-6">
                         <div class="want-padding">
-                            <a href="browse.jsp?category=0&sort=0" class="want-top btn btn-block btn-lg btn-primary-outline"> ดูโครงการต่าง ๆ</a>
+                            <a href="ViewAllServlet" class="want-top btn btn-block btn-lg btn-primary-outline"> ดูโครงการต่าง ๆ</a>
                         </div>
                     </div>
 
