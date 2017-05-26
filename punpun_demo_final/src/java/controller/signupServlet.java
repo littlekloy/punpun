@@ -7,30 +7,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
+import utilities.MemberUtil;
 
 /**
  *
  * @author kanok
  */
-public class loginServlet extends HttpServlet {
-
-    private Connection conn;
-    private PreparedStatement selectData;
-
-    public void init() {
-        conn = (Connection) getServletContext().getAttribute("connection");
-    }
+public class signupServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,24 +36,22 @@ public class loginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("email");
-            String pass = request.getParameter("password");
-            String cmdSelect = "select * from members where email = ? and password = ?";
-            selectData = conn.prepareStatement(cmdSelect);
-            selectData.setString(1, user);
-            selectData.setString(2, pass);
-            ResultSet rs = selectData.executeQuery();
+            HttpSession session = request.getSession();
 
-            if (rs.next()) {
-                out.print(rs.getString(1));
-                HttpSession session = request.getSession();
-                session.setAttribute("member_id", rs.getString(1));
-                response.sendRedirect("index.jsp");
-            } else {
-                response.sendRedirect("test.jsp");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ServletContext context = getServletContext();
+            DataSource ds = (DataSource) context.getAttribute("dataSource");
+
+            MemberUtil memberUtil = new MemberUtil(ds);
+            memberUtil.connect();
+            String firstName = request.getParameter("firstname");
+            String lastName = request.getParameter("lastname");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            out.print(memberUtil.insertMember(firstName, lastName, email, password));
+
+            out.print(memberUtil.findMemberByEmail(email));
+            session.setAttribute("member", memberUtil.findMemberByEmail(email));
+            response.sendRedirect("index.jsp");
         }
     }
 

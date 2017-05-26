@@ -32,17 +32,17 @@
                     </header>
                     <div class="auth-content">
                         <form id="login-form" action="loginServlet" method="GET" novalidate="">
-                            <div class="form-group"> <label for="username">ชื่อผู้ใช้</label> <input type="text" class="form-control underlined" name="username" id="username" placeholder="ชื่อผู้ใช้ของคุณ" required> </div>
+                            <div class="form-group"> <label for="username">อีเมล์</label> <input type="text" class="form-control underlined" name="email" id="username" placeholder="ชื่อผู้ใช้ของคุณ" required> </div>
                             <div class="form-group"> <label for="password">รหัสผ่าน</label> <input type="password" class="form-control underlined" name="password" id="password" placeholder="รหัสผ่านของคุณ" required> </div>
                             <div class="form-group">
                                 <label for="remember">
                                     <input class="checkbox" id="remember" type="checkbox">
                                     <span>จำฉันไว้</span>
-                                </label> <a href="forgot-password.html" class="forgot-btn pull-right">ลืมรหัสผ่าน?</a>
+                                </label> <a href="forgot-password.jsp" class="forgot-btn pull-right">ลืมรหัสผ่าน?</a>
                             </div>
                             <div class="form-group"> <button type="submit" class="btn btn-block btn-primary">ลงชื่อเข้าใช้</button></div>
                             <div class="form-group">
-                                <p class="text-muted text-xs-center">ไม่มีบัญชีผู้ใช้? <a href="signup.html">สมัครเลยที่นี่!</a></p>
+                                <p class="text-muted text-xs-center">ไม่มีบัญชีผู้ใช้? <a href="signup.jsp">สมัครเลยที่นี่!</a></p>
                             </div>
                         </form>
                     </div>
