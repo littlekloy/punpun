@@ -58,6 +58,7 @@ public class MemberUtil {
             insertData.setString(2, firstName);
             insertData.setString(3, lastName);
             insertData.setString(4, email);
+            System.out.println(insertData);
             return insertData.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(MemberUtil.class.getName()).log(Level.SEVERE, null, ex);

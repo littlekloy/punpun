@@ -104,7 +104,7 @@ public class Projects implements Serializable {
     private Collection<UpdateLog> updateLogCollection;
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     @ManyToOne
-    private Teams teamId;
+    private Integer teamId;
     @JoinColumn(name = "project_category_id", referencedColumnName = "project_category_id")
     @ManyToOne
     private Integer projectCategoryId;
@@ -289,11 +289,11 @@ public class Projects implements Serializable {
         this.updateLogCollection = updateLogCollection;
     }
 
-    public Teams getTeamId() {
+    public Integer getTeamId() {
         return teamId;
     }
 
-    public void setTeamId(Teams teamId) {
+    public void setTeamId(Integer teamId) {
         this.teamId = teamId;
     }
 

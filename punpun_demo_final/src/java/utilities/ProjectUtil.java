@@ -116,4 +116,42 @@ public class ProjectUtil implements Serializable {
         }
         return null;
     }
+
+    public ArrayList<Projects> findProjectByKeyword(String keyword) {
+        String cmd = "select * from projects where name like ? ";
+        String cmd2 = "or short_description like ? or story like ? or location like ?";
+        ArrayList<Projects> projects = new ArrayList<Projects>();
+
+        try {
+            selectData = conn.prepareStatement(cmd + cmd2);
+            selectData.setString(1, "%" + keyword + "%");
+            selectData.setString(2, "%" + keyword + "%");
+            selectData.setString(3, "%" + keyword + "%");
+            selectData.setString(4, "%" + keyword + "%");
+            System.out.println(selectData);
+            ResultSet rs = selectData.executeQuery();
+            while (rs.next()) {
+                Projects project = new Projects();
+                project.setProjectId(rs.getInt("project_id"));
+                project.setName(rs.getString("name"));
+                project.setLocation(rs.getString("location"));
+                project.setFundingDuration(rs.getInt("funding_duration"));
+                project.setBudget(rs.getFloat("budget"));
+                project.setStartDate(rs.getDate("start_date"));
+                project.setEndDate(rs.getDate("end_date"));
+                project.setShortDescription(rs.getString("short_description"));
+                project.setStory(rs.getString("story"));
+                project.setStatus(rs.getString("status"));
+                project.setProjectCategoryId(rs.getInt("project_category_id"));
+                project.setPercent(rs.getFloat("percent"));
+                project.setSupporter(rs.getInt("supporter"));
+                project.setFunded(rs.getInt("funded"));
+                projects.add(project);
+            }
+            return projects;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProjectUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
