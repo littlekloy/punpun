@@ -83,4 +83,37 @@ public class ProjectUtil implements Serializable {
         }
 
     }
+
+    public Projects findProjectById(Integer id) {
+        String cmd = "select * from projects where project_id = ?";
+        Projects project = new Projects();
+        try {
+            selectData = conn.prepareStatement(cmd);
+            selectData.setInt(1, id);
+            ResultSet rs = selectData.executeQuery();
+            while (rs.next()) {
+
+                project.setProjectId(rs.getInt("project_id"));
+                project.setName(rs.getString("name"));
+                project.setLocation(rs.getString("location"));
+                project.setFundingDuration(rs.getInt("funding_duration"));
+                project.setBudget(rs.getFloat("budget"));
+                project.setStartDate(rs.getDate("start_date"));
+                project.setEndDate(rs.getDate("end_date"));
+                project.setShortDescription(rs.getString("short_description"));
+                project.setStory(rs.getString("story"));
+                project.setStatus(rs.getString("status"));
+                project.setProjectCategoryId(rs.getInt("project_category_id"));
+                project.setPercent(rs.getFloat("percent"));
+                project.setSupporter(rs.getInt("supporter"));
+                project.setFunded(rs.getInt("funded"));
+                project.setTeamId(rs.getInt("team_id"));
+                System.out.println(project);
+            }
+            return project;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProjectUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
