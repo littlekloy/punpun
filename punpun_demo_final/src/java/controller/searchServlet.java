@@ -7,29 +7,16 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
-import utilities.MemberUtil;
 
 /**
  *
  * @author kanok
  */
-public class loginServlet extends HttpServlet {
-
-    private Connection conn;
-    private PreparedStatement selectData;
-
-    public void init() {
-        conn = (Connection) getServletContext().getAttribute("connection");
-    }
+public class searchServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,32 +32,7 @@ public class loginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("email");
-            String pass = request.getParameter("password");
-            HttpSession session = request.getSession();
 
-            ServletContext context = getServletContext();
-            DataSource ds = (DataSource) context.getAttribute("dataSource");
-
-            MemberUtil memberUtil = new MemberUtil(ds);
-            memberUtil.connect();
-            out.print(memberUtil.authenicate(user, pass));
-//            String cmdSelect = "select * from members where email = ? and password = ?";
-//            selectData = conn.prepareStatement(cmdSelect);
-//            selectData.setString(1, user);
-//            selectData.setString(2, pass);
-//            ResultSet rs = selectData.executeQuery();
-//
-//            if (rs.next()) {
-//                out.print(rs.getString(1));
-//                HttpSession session = request.getSession();
-//                session.setAttribute("member_id", rs.getString(1));
-//                response.sendRedirect("index.jsp");
-//            } else {
-//                response.sendRedirect("test.jsp");
-//            }
-            session.setAttribute("member", memberUtil.authenicate(user, pass));
-            response.sendRedirect("index.jsp");
         }
     }
 
