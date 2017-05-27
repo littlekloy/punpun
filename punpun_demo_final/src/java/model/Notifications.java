@@ -56,7 +56,7 @@ public class Notifications implements Serializable {
     private Date timestamp;
     @Basic(optional = false)
     @Column(name = "checked")
-    private Character checked;
+    private Integer checked;
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     @ManyToOne
     private Members memberId;
@@ -68,7 +68,7 @@ public class Notifications implements Serializable {
         this.notificationId = notificationId;
     }
 
-    public Notifications(Integer notificationId, Character checked) {
+    public Notifications(Integer notificationId, Integer checked) {
         this.notificationId = notificationId;
         this.checked = checked;
     }
@@ -113,11 +113,11 @@ public class Notifications implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public Character getChecked() {
+    public Integer getChecked() {
         return checked;
     }
 
-    public void setChecked(Character checked) {
+    public void setChecked(Integer checked) {
         this.checked = checked;
     }
 
