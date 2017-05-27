@@ -324,9 +324,8 @@
                                                         </div>
 
                                                         <!--Button-->
-                                                        <input type="submit" class="btn btn-primary btn-block"  value="Submit"  />
-                                                        <input type="submit" class="btn btn-secondary btn-block"  value="Cancel"  />
-
+                                                        <input type="submit" class="btn btn-primary btn-block"  value="ยืนยัน"  />
+                                                        <a href="javascript:history.back()" class="btn btn-block btn-primary-outline">ยกเลิก/a>
 
                                                     </form>
                                                 </div>
