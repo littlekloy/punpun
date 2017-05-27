@@ -30,7 +30,6 @@
         <div class="main-wrapper">
             <div class="app" id="app">
 
-
                 <!--Nav Bar-->
                 <header class="header">
                     <div class="brand">
@@ -38,10 +37,10 @@
                         <div class="image-container logo hidden-sm-up"style="width: 30px; height: 30px;"> <img src="assets/logo/punpun_white.png" alt="Punpun"> </div>
                     </div>
                     <div class="header-block header-block-search hidden-md-down">
-                        <form role="search" action="">
+                        <form role="search" action="searchServlet">
                             <div class="input-container">
                                 <div>
-                                    <i class="fa fa-search"></i> <input type="search" placeholder="...ค้นหาโครงการ...">
+                                    <i class="fa fa-search"></i> <input type="search" name="keyword" placeholder="...ค้นหาโครงการ...">
                                 </div>
                             </div>
                         </form>
@@ -67,12 +66,11 @@
                                 </li>
                             </c:if>
                             <c:if test="${member != null }">
-
                                 <sql:query var="data" dataSource="punpun">
-                                    SELECT * FROM notifications
+                                    SELECT * FROM notifications where member_id = ${member.memberId} and checked = 'F'
                                 </sql:query>
                                 <sql:query var="count" dataSource="punpun">
-                                    SELECT count(notification_id) as count FROM notifications
+                                    SELECT count(notification_id) as count FROM notifications where member_id = ${member.memberId} and checked = 'F'
                                 </sql:query>
                                 <!-- notification -->
                                 <li class="notifications new">
@@ -108,7 +106,6 @@
                                 </li>
 
 
-
                                 <!-- profile -->
                                 <li class="profile dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -124,16 +121,13 @@
                                         <a class="dropdown-item" href="logoutServlet"> <i class="fa fa-power-off icon"></i> ลงชื่อออก </a>
                                     </div>
                                 </li>
-
-
                             </c:if>
                         </ul>
                     </div>
                 </header>
 
-
                 <!-- Header Content -->
-                <div class="app parallax-autoheight white-text" style="background-image: url('assets/backgrounds/banner2.jpg');" >
+                <div class="app parallax-autoheight white-text" style="background-image: url('assets/backgrounds/profile-card-2.jpg');" >
                     <article class="container content-browse items-list-page">
                         <!-- Title -->
                         <div class="title-block">
@@ -142,7 +136,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h3 class="center-text"> ${project.name} </h3>
+                            <h3 class="center-text"> อุปกรณ์การเรียนแก่เด็กอมก๋อย </h3>
                         </div>
                     </article>
                 </div>
@@ -159,7 +153,7 @@
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-pills">
                                             <li class="nav-item"> <a href="donate.html" class="nav-link active"> 1. เลือกรายการที่ต้องการช่วยเหลือ </a> </li>
-                                            <li class="nav-item"> <a href="payment.html" class="nav-link"> 2. กรอกข้อมูลการชำระเงิน </a> </li>
+                                            <li class="nav-item"> <a href="#" class="nav-link"> 2. กรอกข้อมูลการชำระเงิน </a> </li>
                                             <li class="nav-item"> <a href="#" class="nav-link"> 3. เรียบร้อย </a> </li>
                                         </ul>
                                         <!-- Tab panes -->
@@ -167,7 +161,7 @@
                                             <!--Basic Tab-->
                                             <div class="tab-pane fade in active" id="basic-pills">
                                                 <div class="card card-block stats">
-                                                    <form role="form" method="post" action="payment.jsp">
+                                                    <form role="form" method="post" action="">
 
                                                         <!--Request Item List-->
                                                         <!--Change id , name , for to item1 2 3 ... ++ if have more than one item.-->
@@ -176,12 +170,12 @@
 
                                                             <progress class="progress stat-progress" value="75" max="100">
                                                                 <div class="progress">
-                                                                    <span class="progress-bar" style="width: ${project.percent}%;"></span>
+                                                                    <span class="progress-bar" style="width: 75%;"></span>
                                                                 </div>
                                                             </progress>
                                                             <div class="col-xs-12 col-md-2 offset-md-5">
                                                                 <div class="stat">
-                                                                    <div class="value"> ${project.funded} / ${project.budget} </div>
+                                                                    <div class="value"> 1500 / 53000 </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -324,9 +318,8 @@
                                                         </div>
 
                                                         <!--Button-->
-                                                        <input type="submit" class="btn btn-primary btn-block"  value="Submit"  />
-                                                        <input type="submit" class="btn btn-secondary btn-block"  value="Cancel"  />
-
+                                                        <input type="submit" class="btn btn-primary btn-block"  value="ยืนยัน"  />
+                                                        <a href="javascript:history.back()" class="btn btn-block btn-primary-outline">ยกเลิก</a>
 
                                                     </form>
                                                 </div>

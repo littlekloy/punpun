@@ -39,10 +39,10 @@
                     <div class="image-container logo hidden-sm-up"style="width: 30px; height: 30px;"> <img src="assets/logo/punpun_white.png" alt="Punpun"> </div>
                 </div>
                 <div class="header-block header-block-search hidden-md-down">
-                    <form role="search" action="">
+                    <form role="search" action="searchServlet">
                         <div class="input-container">
                             <div>
-                                <i class="fa fa-search"></i> <input type="search" placeholder="...ค้นหาโครงการ...">
+                                <i class="fa fa-search"></i> <input type="search" name="keyword" placeholder="...ค้นหาโครงการ...">
                             </div>
                         </div>
                     </form>
@@ -53,7 +53,7 @@
                             <a href="index.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-home"></i> <span> หน้าแรก </span> </a>
                         </li>
                         <li class="header-block header-block-buttons">
-                            <a href="browse.jsp?category=0&sort=0" class="btn btn-none-shadow header-btn"> <i class="fa fa-file-text"></i> <span> โครงการต่าง ๆ </span> </a>
+                            <a href="ViewAllServlet" class="btn btn-none-shadow header-btn"> <i class="fa fa-file-text"></i> <span> โครงการต่าง ๆ </span> </a>
                         </li>
                         <li class="header-block header-block-buttons">
                             <a href="how-it-works.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-list-ul"></i> <span> ขั้นตอนการบริจาค </span> </a>
@@ -61,18 +61,18 @@
                         <li class="header-block header-block-buttons">
                             <a href="dashboard-project-setup-info.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-plus"></i> <span> สร้างโครงการ </span> </a>
                         </li>
-                        <c:if test="${empty member_id}">
+                        <c:if test="${empty member}">
                             <!-- login -->
                             <li class="header-block header-block-buttons">
                                 <a href="login.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-sign-in"></i> <span> ลงชื่อเข้าใช้ </span> </a>
                             </li>
                         </c:if>
-                        <c:if test="${member_id != null }">
+                        <c:if test="${member != null }">
                             <sql:query var="data" dataSource="punpun">
-                                SELECT * FROM notifications where member_id = ${member_id} and checked = 'F'
+                                SELECT * FROM notifications where member_id = ${member.memberId} and checked = 'F'
                             </sql:query>
                             <sql:query var="count" dataSource="punpun">
-                                SELECT count(notification_id) as count FROM notifications where member_id = ${member_id} and checked = 'F'
+                                SELECT count(notification_id) as count FROM notifications where member_id = ${member.memberId} and checked = 'F'
                             </sql:query>
                             <!-- notification -->
                             <li class="notifications new">
@@ -107,29 +107,23 @@
                                 </div>
                             </li>
 
-                            <sql:query var="data2" dataSource="punpun">
-                                SELECT * FROM members where member_id = ${member_id}
-                            </sql:query>
-                            <c:forEach var="user" items="${data2.rows}">
-                                <!-- profile -->
-                                <li class="profile dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <div class="img" style="background-image: url('assets/img/profile/${member_id}.jpg')"> </div> <span class="name">
-                                            ${user.first_name}
-                                        </span> </a>
-                                    <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <a class="dropdown-item" href="profile.jsp/?member_id=${member_id}"> <i class="fa fa-user icon"></i> โพรไฟล์ </a>
-                                        <a class="dropdown-item" href="dashboard.jsp"> <i class="fa fa-user icon"></i> แดชบอร์ด </a>
-                                        <a class="dropdown-item" href="dashboard-project-list.jsp"> <i class="fa fa-bell icon"></i> โครงการของคุณ </a>
-                                        <a class="dropdown-item" href="dashboard-account-setting.jsp"> <i class="fa fa-gear icon"></i> ตั้งค่าบัญชีผู้ใช้ </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="logoutServlet"> <i class="fa fa-power-off icon"></i> ลงชื่อออก </a>
-                                    </div>
-                                </li>
-                            </c:forEach>
 
+                            <!-- profile -->
+                            <li class="profile dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <div class="img" style="background-image: url('assets/img/profile/${member.memberId}.jpg')"> </div> <span class="name">
+                                        ${member.firstName}
+                                    </span> </a>
+                                <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <a class="dropdown-item" href="profile.jsp/?member_id=${member.memberId}"> <i class="fa fa-user icon"></i> โพรไฟล์ </a>
+                                    <a class="dropdown-item" href="dashboard.jsp"> <i class="fa fa-user icon"></i> แดชบอร์ด </a>
+                                    <a class="dropdown-item" href="dashboard-project-list.jsp"> <i class="fa fa-bell icon"></i> โครงการของคุณ </a>
+                                    <a class="dropdown-item" href="dashboard-account-setting.jsp"> <i class="fa fa-gear icon"></i> ตั้งค่าบัญชีผู้ใช้ </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="logoutServlet"> <i class="fa fa-power-off icon"></i> ลงชื่อออก </a>
+                                </div>
+                            </li>
                         </c:if>
-
                     </ul>
                 </div>
             </header>

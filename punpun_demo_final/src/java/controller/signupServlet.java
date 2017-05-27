@@ -53,7 +53,6 @@ public class signupServlet extends HttpServlet {
             session.setAttribute("member", memberUtil.findMemberByEmail(email));
             memberUtil.closeConnection();
             response.sendRedirect("index.jsp");
-
         }
     }
 
