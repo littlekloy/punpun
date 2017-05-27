@@ -39,10 +39,10 @@
                     <div class="image-container logo hidden-sm-up"style="width: 30px; height: 30px;"> <img src="assets/logo/punpun_white.png" alt="Punpun"> </div>
                 </div>
                 <div class="header-block header-block-search hidden-md-down">
-                    <form role="search" action="">
+                    <form role="search" action="searchServlet">
                         <div class="input-container">
                             <div>
-                                <i class="fa fa-search"></i> <input type="search" placeholder="...ค้นหาโครงการ...">
+                                <i class="fa fa-search"></i> <input type="search" name="keyword" placeholder="...ค้นหาโครงการ...">
                             </div>
                         </div>
                     </form>

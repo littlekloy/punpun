@@ -202,7 +202,7 @@
                     <!-- Project Card Container -->
                     <section class="section">
                         <c:if test="${param.category == 0}">
-                            <c:forEach var="project" items="${sessionScope.allProjects}">
+                            <c:forEach var="project" items="${sessionScope.projects}">
                                 <!-- Project Card -->
                                 <div class="col-lg-4">
                                     <div class="card card-default">
