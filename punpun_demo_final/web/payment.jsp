@@ -157,10 +157,11 @@
                                     <div class="card-block">
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"> <a href="donate.html" class="nav-link"> เลือกรายการที่ต้องการช่วยเหลือ </a> </li>
-                                            <li class="nav-item"> <a href="payment.html" class="nav-link active"> กรอกข้อมูลการชำระเงิน </a> </li>
-                                            <li class="nav-item"> <a href="#" class="nav-link"> เรียบร้อย </a> </li>
+                                            <li class="nav-item"> <a href="donate.html" class="nav-link active"> 1. เลือกรายการที่ต้องการช่วยเหลือ </a> </li>
+                                            <li class="nav-item"> <a href="#" class="nav-link"> 2. กรอกข้อมูลการชำระเงิน </a> </li>
+                                            <li class="nav-item"> <a href="#" class="nav-link"> 3. เรียบร้อย </a> </li>
                                         </ul>
+
                                         <!-- Tab panes -->
                                         <div class="tab-content">
                                             <!--Basic Tab-->
