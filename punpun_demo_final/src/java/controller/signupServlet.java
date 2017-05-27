@@ -51,7 +51,9 @@ public class signupServlet extends HttpServlet {
 
             out.print(memberUtil.findMemberByEmail(email));
             session.setAttribute("member", memberUtil.findMemberByEmail(email));
+            memberUtil.closeConnection();
             response.sendRedirect("index.jsp");
+
         }
     }
 

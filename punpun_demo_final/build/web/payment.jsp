@@ -142,7 +142,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h3 class="center-text"> อุปกรณ์การเรียนแก่เด็กอมก๋อย </h3>
+                            <h3 class="center-text"> ${project.name} </h3>
                         </div>
                     </article>
                 </div>
@@ -158,8 +158,8 @@
                                     <div class="card-block">
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"> <a href="donate.html" class="nav-link"> เลือกรายการที่ต้องการช่วยเหลือ </a> </li>
-                                            <li class="nav-item"> <a href="payment.html" class="nav-link active"> กรอกข้อมูลการชำระเงิน </a> </li>
+                                            <li class="nav-item"> <a href="donate.jsp" class="nav-link"> เลือกรายการที่ต้องการช่วยเหลือ </a> </li>
+                                            <li class="nav-item"> <a href="payment.jsp" class="nav-link active"> กรอกข้อมูลการชำระเงิน </a> </li>
                                             <li class="nav-item"> <a href="#" class="nav-link"> เรียบร้อย </a> </li>
                                         </ul>
                                         <!-- Tab panes -->

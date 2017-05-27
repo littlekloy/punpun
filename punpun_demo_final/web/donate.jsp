@@ -52,7 +52,7 @@
                                 <a href="index.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-home"></i> <span> หน้าแรก </span> </a>
                             </li>
                             <li class="header-block header-block-buttons">
-                                <a href="browse.jsp?category=0&sort=0" class="btn btn-none-shadow header-btn"> <i class="fa fa-file-text"></i> <span> โครงการต่าง ๆ </span> </a>
+                                <a href="ViewAllServlet" class="btn btn-none-shadow header-btn"> <i class="fa fa-file-text"></i> <span> โครงการต่าง ๆ </span> </a>
                             </li>
                             <li class="header-block header-block-buttons">
                                 <a href="how-it-works.jsp" class="btn btn-none-shadow header-btn"> <i class="fa fa-list-ul"></i> <span> ขั้นตอนการบริจาค </span> </a>
@@ -133,7 +133,7 @@
 
 
                 <!-- Header Content -->
-                <div class="app parallax-autoheight white-text" style="background-image: url('assets/backgrounds/profile-card-2.jpg');" >
+                <div class="app parallax-autoheight white-text" style="background-image: url('assets/backgrounds/banner2.jpg');" >
                     <article class="container content-browse items-list-page">
                         <!-- Title -->
                         <div class="title-block">
@@ -142,7 +142,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h3 class="center-text"> อุปกรณ์การเรียนแก่เด็กอมก๋อย </h3>
+                            <h3 class="center-text"> ${project.name} </h3>
                         </div>
                     </article>
                 </div>
@@ -158,8 +158,8 @@
                                     <div class="card-block">
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"> <a href="donate.html" class="nav-link active"> เลือกรายการที่ต้องการช่วยเหลือ </a> </li>
-                                            <li class="nav-item"> <a href="payment.html" class="nav-link"> กรอกข้อมูลการชำระเงิน </a> </li>
+                                            <li class="nav-item"> <a href="donate.jsp" class="nav-link active"> เลือกรายการที่ต้องการช่วยเหลือ </a> </li>
+                                            <li class="nav-item"> <a href="payment.jsp" class="nav-link"> กรอกข้อมูลการชำระเงิน </a> </li>
                                             <li class="nav-item"> <a href="#" class="nav-link"> เรียบร้อย </a> </li>
                                         </ul>
                                         <!-- Tab panes -->
@@ -167,7 +167,7 @@
                                             <!--Basic Tab-->
                                             <div class="tab-pane fade in active" id="basic-pills">
                                                 <div class="card card-block stats">
-                                                    <form role="form" method="post" action="">
+                                                    <form role="form" method="post" action="payment.jsp">
 
                                                         <!--Request Item List-->
                                                         <!--Change id , name , for to item1 2 3 ... ++ if have more than one item.-->
@@ -176,12 +176,12 @@
 
                                                             <progress class="progress stat-progress" value="75" max="100">
                                                                 <div class="progress">
-                                                                    <span class="progress-bar" style="width: 75%;"></span>
+                                                                    <span class="progress-bar" style="width: ${project.percent}%;"></span>
                                                                 </div>
                                                             </progress>
                                                             <div class="col-xs-12 col-md-2 offset-md-5">
                                                                 <div class="stat">
-                                                                    <div class="value"> 1500 / 53000 </div>
+                                                                    <div class="value"> ${project.funded} / ${project.budget} </div>
                                                                 </div>
                                                             </div>
                                                         </div>

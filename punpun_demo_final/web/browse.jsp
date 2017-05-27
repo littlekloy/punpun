@@ -214,7 +214,7 @@
 
                                         <!-- Name and Short Info -->
                                         <div class="card-block-browse">
-                                            <a href="project-detail.jsp?id=${project.projectId}"><h5> ${project.name}</h5></a>
+                                            <a href="viewProjectServlet?id=${project.projectId}"><h5> ${project.name}</h5></a>
                                             <p class="" id="dot1"><small>${project.shortDescription}</small></p>
                                         </div>
 
@@ -287,7 +287,7 @@
 
                                     <!-- Name and Short Info -->
                                     <div class="card-block-browse">
-                                        <a href="project-detail.jsp?id=${project.project_id}"><h5> ${project.name}</h5></a>
+                                        <a href="viewProjectServlet?id=${project.project_id}"><h5> ${project.name}</h5></a>
                                         <p class="" id="dot1"><small>${project.short_description}</small></p>
                                     </div>
 
