@@ -32,7 +32,7 @@
                     </header>
                     <div class="auth-content">
                         <form id="login-form" action="loginServlet" method="GET" novalidate="">
-                            <div class="form-group"> <label for="username">ชื่อผู้ใช้</label> <input type="text" class="form-control underlined" name="username" id="username" placeholder="ชื่อผู้ใช้ของคุณ" required> </div>
+                            <div class="form-group"> <label for="username">ชื่อผู้ใช้</label> <input type="text" class="form-control underlined" name="email" id="username" placeholder="ชื่อผู้ใช้ของคุณ" required> </div>
                             <div class="form-group"> <label for="password">รหัสผ่าน</label> <input type="password" class="form-control underlined" name="password" id="password" placeholder="รหัสผ่านของคุณ" required> </div>
                             <div class="form-group">
                                 <label for="remember">

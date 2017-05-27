@@ -30,36 +30,37 @@
                     <header class="auth-header">
                         <h1 class="auth-title"> สมัครสมาชิก </h1>
                     </header>
-                    <form action="signupServlet">
-                        <div class="auth-content">
-                            <p class="text-xs-center"></p>
-                            <form id="signup-form" action="dashboard-setting-profile.jsp" method="GET" novalidate="">
-                                <div class="form-group"> <label for="firstname">ชื่อ - นามสกุล</label>
-                                    <div class="row">
-                                        <div class="col-sm-6"> <input type="text" class="form-control underlined" name="firstname" id="firstname" placeholder="ชื่อจริง" required=""> </div>
-                                        <div class="col-sm-6"> <input type="text" class="form-control underlined" name="lastname" id="lastname" placeholder="นามสกุล" required=""> </div>
-                                    </div>
-                                </div>
-                                <div class="form-group"> <label for="email">อีเมล</label> <input type="email" class="form-control underlined" name="email" id="email" placeholder="กรอกอีเมลของคุณ" required=""> </div>
-                                <div class="form-group"> <label for="password">รหัสผ่าน</label>
-                                    <div class="row">
-                                        <div class="col-sm-6"> <input type="password" class="form-control underlined" name="password" id="password" placeholder="กรอกรหัสผ่าน" required=""> </div>
-                                        <div class="col-sm-6"> <input type="password" class="form-control underlined" name="retype_password" id="retype_password" placeholder="กรอกรหัสผ่านอีกครั้ง" required=""> </div>
-                                    </div>
-                                </div>
-                                <div class="form-group"> <button type="submit" class="btn btn-block btn-primary"> ลงทะเบียน </button> </div>
 
-                            </form>
-                            <div class="form-group">
-                                <p class="text-muted text-xs-center"> หรือ </p>
+                    <div class="auth-content">
+                        <p class="text-xs-center"></p>
+                        <form id="signup-form" method="GET"action="signupServlet" novalidate="">
+                            <div class="form-group"> <label for="firstname">ชื่อ - นามสกุล</label>
+                                <div class="row">
+                                    <div class="col-sm-6"> <input type="text" class="form-control underlined" name="firstname" id="firstname" placeholder="ชื่อจริง" required=""> </div>
+                                    <div class="col-sm-6"> <input type="text" class="form-control underlined" name="lastname" id="lastname" placeholder="นามสกุล" required=""> </div>
+                                </div>
                             </div>
-                            <div class="form-group"> <button type="submit" class="btn btn-block btn-info">Facebook</button> </div>
-                            <div class="form-group"> <button type="submit" class="btn btn-block btn-warning">Google</button> </div>
-                            <div class="form-group">
-                                <p class="text-muted text-xs-center">มีบัญชีผู้ใช้อยู่แล้วหรือไม่? <a href="login.jsp">ลงชื่อเข้าใช้!</a></p>
+                            <div class="form-group"> <label for="email">อีเมล</label> <input type="email" class="form-control underlined" name="email" id="email" placeholder="กรอกอีเมลของคุณ" required=""> </div>
+                            <div class="form-group"> <label for="password">รหัสผ่าน</label>
+                                <div class="row">
+                                    <div class="col-sm-6"> <input type="password" class="form-control underlined" name="password" id="password" placeholder="กรอกรหัสผ่าน" required=""> </div>
+                                    <div class="col-sm-6"> <input type="password" class="form-control underlined" name="retype_password" id="retype_password" placeholder="กรอกรหัสผ่านอีกครั้ง" required=""> </div>
+                                </div>
                             </div>
+                            <div class="form-group"> <button type="submit" class="btn btn-block btn-primary"> ลงทะเบียน </button> </div>
+
+                        </form>
+                        <div class="form-group">
+                            <p class="text-muted text-xs-center"> หรือ </p>
                         </div>
-                    </form>
+                        <div class="form-group"> <button type="submit" class="btn btn-block btn-info">Facebook</button> </div>
+                        <div class="form-group"> <button type="submit" class="btn btn-block btn-warning">Google</button> </div>
+                        <div class="form-group">
+                            <p class="text-muted text-xs-center">มีบัญชีผู้ใช้อยู่แล้วหรือไม่? <a href="login.jsp">ลงชื่อเข้าใช้!</a></p>
+                        </div>
+                    </div>
+
+
 
                 </div>
                 <div class="text-xs-center">
@@ -72,4 +73,4 @@
         <script src="assets/js/vendor.js"></script>
         <script src="assets/js/app.js"></script>
     </body>
-</html> 
+</html>
